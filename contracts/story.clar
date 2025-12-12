@@ -1,5 +1,5 @@
 ;; ------------------------------------------------------------
-;; ONE WORD STORY – Clarity 4 Contract
+;; ONE WORD STORY Clarity 4 Contract
 ;; Users can add ONE WORD at a time.
 ;; Each entry is saved with:
 ;;  - the word
@@ -7,22 +7,17 @@
 ;;  - the block timestamp (Clarity 4 feature)
 ;; ------------------------------------------------------------
 
-;; Data store for the story – an increasing list of entries
+;; Error codes
+(define-constant ERR-STORY-FULL (err u100))
+
+;; Data store for the story an increasing list of entries
 (define-data-var story (list 200 { 
     word: (string-ascii 32),
-    sender: (string-ascii 256),
+    sender: principal,
     timestamp: uint
 }) 
     ;; initial empty list
     (list)
-)
-
-;; ------------------------------------------------------------
-;; HELPER: Convert principal → ASCII string
-;; New Clarity 4 feature allows converting values to readable text.
-;; ------------------------------------------------------------
-(define-read-only (principal-to-string (p principal))
-    (to-utf8 p) ;; Clarity 4 built-in for conversion
 )
 
 ;; ------------------------------------------------------------
@@ -33,21 +28,29 @@
 (define-public (add-word (word (string-ascii 32)))
     (let (
             (sender tx-sender)
-            (sender-text (principal-to-string sender))
-            (time block-header-timestamp)
+            (time u0)
+            (current (var-get story))
          )
-        ;; Append new entry to story
-        (begin
-            (var-set story
-                (append (var-get story)
-                    (list { 
-                        word: word,
-                        sender: sender-text,
-                        timestamp: time
-                    })
+        ;; Prevent exceeding max length
+        (if (< (len current) u200)
+            (begin
+                (var-set story
+                    (unwrap-panic
+                        (as-max-len?
+                            (append current
+                                { 
+                                    word: word,
+                                    sender: sender,
+                                    timestamp: time
+                                }
+                            )
+                            u200
+                        )
+                    )
                 )
+                (ok { added: word, by: sender, at: time })
             )
-            (ok { added: word, by: sender-text, at: time })
+            ERR-STORY-FULL
         )
     )
 )
