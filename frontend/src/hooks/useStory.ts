@@ -80,18 +80,23 @@ export function useStory() {
       return [];
     }
 
-    console.log('parseClarityValue: cv type:', cv.type, 'typeName:', cv.typeName, 'cv:', cv);
+    console.log('parseClarityValue: cv type:', cv.type, 'typeName:', cv.typeName);
+    console.log('parseClarityValue: cv.value:', cv.value);
 
-    // Handle ResponseOk type (type 9 or ResponseOk)
-    if (cv.type === 9 || cv.typeName === 'ResponseOk' || cv.type === 'ResponseOk') {
-      console.log('Found ResponseOk, unwrapping...');
-      return parseClarityValue(cv.value);
+    // Handle ResponseOk type (type 9, 'ok', or ResponseOk)
+    if (cv.type === 9 || cv.type === 'ok' || cv.typeName === 'ResponseOk' || cv.type === 'ResponseOk') {
+      console.log('Found ResponseOk/ok, unwrapping value...');
+      if (cv.value) {
+        return parseClarityValue(cv.value);
+      }
+      return [];
     }
 
-    // Handle List type (type 10 or List)
-    if (cv.type === 10 || cv.typeName === 'List' || cv.type === 'List') {
+    // Handle List type (type 10, 'list', or List)
+    if (cv.type === 10 || cv.type === 'list' || cv.typeName === 'List' || cv.type === 'List') {
       console.log('Found List type');
       const list = cv.list || cv.value || [];
+      console.log('List items count:', Array.isArray(list) ? list.length : 'not an array');
       console.log('List items:', list);
       
       if (!Array.isArray(list)) {
@@ -101,20 +106,23 @@ export function useStory() {
 
       return list.map((item: any, index: number) => {
         console.log(`Parsing item ${index}:`, item);
+        console.log(`Item ${index} type:`, item?.type, 'typeName:', item?.typeName);
         
         // Handle tuple - could be item.value or item itself
         let tuple = item;
         if (item && item.value) {
           tuple = item.value;
-        } else if (item && item.type === 'Tuple') {
+        } else if (item && (item.type === 'Tuple' || item.type === 'tuple')) {
           tuple = item.value || item.data || item;
         }
 
         console.log(`Item ${index} tuple:`, tuple);
+        console.log(`Item ${index} tuple keys:`, tuple ? Object.keys(tuple) : 'no tuple');
 
-        const word = extractValue(tuple.word) || extractValue(tuple['word']) || '';
-        const sender = extractValue(tuple.sender) || extractValue(tuple['sender']) || '';
-        const timestamp = Number(extractValue(tuple.timestamp) || extractValue(tuple['timestamp']) || 0);
+        // Try different ways to access tuple fields
+        const word = extractValue(tuple?.word) || extractValue(tuple?.['word']) || '';
+        const sender = extractValue(tuple?.sender) || extractValue(tuple?.['sender']) || '';
+        const timestamp = Number(extractValue(tuple?.timestamp) || extractValue(tuple?.['timestamp']) || 0);
 
         console.log(`Item ${index} parsed:`, { word, sender, timestamp });
 
