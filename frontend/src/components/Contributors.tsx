@@ -1,4 +1,5 @@
 import type { StoryEntry } from '../types';
+import './Contributors.css';
 
 interface Contributor {
   address: string;
@@ -14,9 +15,11 @@ interface ContributorsProps {
 export function Contributors({ story, isLoading }: ContributorsProps) {
   if (isLoading) {
     return (
-      <section>
+      <section className="contributors-section">
         <h2>Contributors</h2>
-        <p>Loading contributors...</p>
+        <div className="contributors-loading">
+          <p>Loading contributors...</p>
+        </div>
       </section>
     );
   }
@@ -53,9 +56,11 @@ export function Contributors({ story, isLoading }: ContributorsProps) {
 
   if (contributors.length === 0) {
     return (
-      <section>
+      <section className="contributors-section">
         <h2>Contributors</h2>
-        <p style={{ color: '#666', fontStyle: 'italic' }}>No contributors yet.</p>
+        <div className="contributors-empty">
+          <p>No contributors yet.</p>
+        </div>
       </section>
     );
   }
@@ -65,37 +70,25 @@ export function Contributors({ story, isLoading }: ContributorsProps) {
   };
 
   return (
-    <section>
+    <section className="contributors-section">
       <h2>Contributors</h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+      <div className="contributors-list">
         {contributors.map((contributor) => (
-          <div
-            key={contributor.address}
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              padding: '0.75rem',
-              backgroundColor: '#f8f9fa',
-              borderRadius: '4px',
-              border: '1px solid #e9ecef',
-            }}
-          >
-            <div>
-              <div style={{ fontFamily: 'monospace', fontSize: '0.875rem' }}>
+          <div key={contributor.address} className="contributor-card">
+            <div className="contributor-info">
+              <span className="contributor-address">
                 {formatAddress(contributor.address)}
-              </div>
+              </span>
             </div>
-            <div style={{ fontSize: '0.875rem', color: '#666' }}>
+            <div className="contributor-count">
               {contributor.count} {contributor.count === 1 ? 'word' : 'words'}
             </div>
           </div>
         ))}
       </div>
-      <p style={{ fontSize: '0.875rem', color: '#666', marginTop: '0.5rem' }}>
+      <p className="contributors-meta">
         {contributors.length} {contributors.length === 1 ? 'contributor' : 'contributors'}
       </p>
     </section>
   );
 }
-

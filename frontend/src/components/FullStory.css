@@ -1,0 +1,38 @@
+.story-section {
+  margin-bottom: 2.5rem;
+}
+
+.story-container {
+  padding: 2rem;
+  background: linear-gradient(135deg, #f8fbff 0%, #ffffff 100%);
+  border-radius: 12px;
+  border: 2px solid #e8f4fd;
+  min-height: 120px;
+  line-height: 1.8;
+  font-size: 1.125rem;
+  color: #1a1a1a;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.08);
+  transition: all 0.3s ease;
+}
+
+.story-container:hover {
+  box-shadow: 0 4px 16px rgba(0, 123, 255, 0.12);
+  border-color: #007bff;
+}
+
+.story-container.loading,
+.story-container.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6c757d;
+  font-style: italic;
+}
+
+.story-meta {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-top: 0.75rem;
+  font-weight: 500;
+}
+

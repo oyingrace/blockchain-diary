@@ -4,6 +4,7 @@ import type { TransactionResult } from '@stacks/connect/dist/types/methods';
 import { Cl } from '@stacks/transactions';
 import { useWallet } from '../contexts/WalletContext';
 import { CONTRACT_ADDRESS, CONTRACT_NAME, NETWORK } from '../constants';
+import './AddWord.css';
 
 interface AddWordProps {
   onWordAdded?: () => void;
@@ -53,10 +54,10 @@ export function AddWord({ onWordAdded }: AddWordProps) {
   };
 
   return (
-    <section style={{ marginBottom: '2rem' }}>
+    <section className="add-word-section">
       <h2>Add a Word</h2>
-      <form onSubmit={handleSubmit}>
-        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
+      <form onSubmit={handleSubmit} className="add-word-form">
+        <div className="input-group">
           <input
             type="text"
             value={word}
@@ -64,42 +65,28 @@ export function AddWord({ onWordAdded }: AddWordProps) {
             placeholder="Enter one word..."
             maxLength={32}
             disabled={!isConnected || isLoading}
-            style={{
-              flex: 1,
-              padding: '0.75rem',
-              fontSize: '1rem',
-              border: '1px solid #ccc',
-              borderRadius: '4px',
-            }}
+            className="word-input"
           />
           <button
             type="submit"
             disabled={!isConnected || isLoading || !word.trim()}
-            style={{
-              padding: '0.75rem 1.5rem',
-              fontSize: '1rem',
-              backgroundColor: isConnected ? '#007bff' : '#ccc',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: isConnected ? 'pointer' : 'not-allowed',
-            }}
+            className="btn-primary btn-submit"
           >
             {isLoading ? 'Adding...' : 'Add Word'}
           </button>
         </div>
         {!isConnected && (
-          <p style={{ fontSize: '0.875rem', color: '#666', margin: 0 }}>
+          <p className="form-hint">
             Connect your wallet to add words
           </p>
         )}
         {error && (
-          <p style={{ fontSize: '0.875rem', color: '#c33', margin: '0.5rem 0 0 0' }}>
+          <p className="form-error">
             Error: {error}
           </p>
         )}
         {success && (
-          <p style={{ fontSize: '0.875rem', color: '#3c3', margin: '0.5rem 0 0 0' }}>
+          <p className="form-success">
             Word added! Refreshing story...
           </p>
         )}
@@ -107,4 +94,3 @@ export function AddWord({ onWordAdded }: AddWordProps) {
     </section>
   );
 }
-

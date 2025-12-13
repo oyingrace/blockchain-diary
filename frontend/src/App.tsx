@@ -9,23 +9,25 @@ function App() {
   const { story, isLoading, error, refetch } = useStory();
 
   return (
-    <div style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto' }}>
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h1>Blockchain Diary</h1>
-        <WalletConnection />
-      </header>
+    <div className="app">
+      <div className="app-container">
+        <header className="app-header">
+          <h1>Blockchain Diary</h1>
+          <WalletConnection />
+        </header>
 
-      {error && (
-        <div style={{ padding: '1rem', backgroundColor: '#fee', color: '#c33', borderRadius: '4px', marginBottom: '1rem' }}>
-          Error: {error}
-        </div>
-      )}
+        {error && (
+          <div className="error-banner">
+            Error: {error}
+          </div>
+        )}
 
-      <main>
-        <AddWord onWordAdded={refetch} />
-        <FullStory story={story} isLoading={isLoading} />
-        <Contributors story={story} isLoading={isLoading} />
-      </main>
+        <main className="main-content">
+          <AddWord onWordAdded={refetch} />
+          <FullStory story={story} isLoading={isLoading} />
+          <Contributors story={story} isLoading={isLoading} />
+        </main>
+      </div>
     </div>
   );
 }

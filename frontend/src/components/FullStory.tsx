@@ -1,4 +1,5 @@
 import type { StoryEntry } from '../types';
+import './FullStory.css';
 
 interface FullStoryProps {
   story: StoryEntry[];
@@ -8,20 +9,22 @@ interface FullStoryProps {
 export function FullStory({ story, isLoading }: FullStoryProps) {
   if (isLoading) {
     return (
-      <section style={{ marginBottom: '2rem' }}>
+      <section className="story-section">
         <h2>Full Story</h2>
-        <p>Loading story...</p>
+        <div className="story-container loading">
+          <p>Loading story...</p>
+        </div>
       </section>
     );
   }
 
   if (!story || story.length === 0) {
     return (
-      <section style={{ marginBottom: '2rem' }}>
+      <section className="story-section">
         <h2>Full Story</h2>
-        <p style={{ color: '#666', fontStyle: 'italic' }}>
-          The story is empty. Be the first to add a word!
-        </p>
+        <div className="story-container empty">
+          <p>The story is empty. Be the first to add a word!</p>
+        </div>
       </section>
     );
   }
@@ -29,25 +32,14 @@ export function FullStory({ story, isLoading }: FullStoryProps) {
   const storyText = story.map((entry) => entry.word).join(' ');
 
   return (
-    <section style={{ marginBottom: '2rem' }}>
+    <section className="story-section">
       <h2>Full Story</h2>
-      <div
-        style={{
-          padding: '1.5rem',
-          backgroundColor: '#f8f9fa',
-          borderRadius: '8px',
-          border: '1px solid #e9ecef',
-          minHeight: '100px',
-          lineHeight: '1.6',
-          fontSize: '1.1rem',
-        }}
-      >
+      <div className="story-container">
         {storyText}
       </div>
-      <p style={{ fontSize: '0.875rem', color: '#666', marginTop: '0.5rem' }}>
+      <p className="story-meta">
         {story.length} {story.length === 1 ? 'word' : 'words'}
       </p>
     </section>
   );
 }
-
