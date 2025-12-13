@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { fetchCallReadOnlyFunction } from '@stacks/transactions';
-import { CONTRACT_ADDRESS, CONTRACT_NAME, NETWORK, API_URL } from '../constants';
+import { CONTRACT_ADDRESS, CONTRACT_NAME, NETWORK } from '../constants';
 import type { StoryEntry } from '../types';
 
 const POLL_INTERVAL = 10000; // 10 seconds
@@ -19,31 +19,6 @@ export function useStory() {
       }
       setError(null);
 
-      // Try using Stacks API REST endpoint first (easier to parse)
-      try {
-        const apiUrl = `${API_URL}/v2/contracts/call-read/${CONTRACT_ADDRESS}/${CONTRACT_NAME}/get-story`;
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            sender: CONTRACT_ADDRESS,
-            arguments: [],
-          }),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          console.log('API response:', data);
-          
-          // The API returns hex-encoded Clarity values, so we still need to use fetchCallReadOnlyFunction
-          // But let's try both approaches
-        }
-      } catch (apiErr) {
-        console.log('API call failed, using fetchCallReadOnlyFunction:', apiErr);
-      }
-
       const result = await fetchCallReadOnlyFunction({
         contractAddress: CONTRACT_ADDRESS,
         contractName: CONTRACT_NAME,
@@ -53,16 +28,9 @@ export function useStory() {
         senderAddress: CONTRACT_ADDRESS,
       });
 
-      // Debug: log the raw result (avoid JSON.stringify due to BigInt)
-      console.log('Raw ClarityValue result:', result);
-      console.log('Result type:', result?.type, 'typeName:', result?.typeName);
-
-      // The result should be a ResponseOk containing a List
-      // Structure: { type: 9, value: { type: 10, list: [...] } }
-
-      // Parse the ClarityValue result manually
+      // Parse the ClarityValue result
+      // Structure: { type: 'ok', value: { type: 'list', list: [...] } }
       const parsedStory = parseClarityValue(result);
-      console.log('Parsed story:', parsedStory);
       setStory(parsedStory);
       isInitialLoadRef.current = false;
     } catch (err) {
@@ -75,17 +43,10 @@ export function useStory() {
   };
 
   const parseClarityValue = (cv: any): StoryEntry[] => {
-    if (!cv) {
-      console.log('parseClarityValue: cv is null/undefined');
-      return [];
-    }
-
-    console.log('parseClarityValue: cv type:', cv.type, 'typeName:', cv.typeName);
-    console.log('parseClarityValue: cv.value:', cv.value);
+    if (!cv) return [];
 
     // Handle ResponseOk type (type 9, 'ok', or ResponseOk)
     if (cv.type === 9 || cv.type === 'ok' || cv.typeName === 'ResponseOk' || cv.type === 'ResponseOk') {
-      console.log('Found ResponseOk/ok, unwrapping value...');
       if (cv.value) {
         return parseClarityValue(cv.value);
       }
@@ -94,20 +55,13 @@ export function useStory() {
 
     // Handle List type (type 10, 'list', or List)
     if (cv.type === 10 || cv.type === 'list' || cv.typeName === 'List' || cv.type === 'List') {
-      console.log('Found List type');
       const list = cv.list || cv.value || [];
-      console.log('List items count:', Array.isArray(list) ? list.length : 'not an array');
-      console.log('List items:', list);
       
       if (!Array.isArray(list)) {
-        console.log('List is not an array:', list);
         return [];
       }
 
-      return list.map((item: any, index: number) => {
-        console.log(`Parsing item ${index}:`, item);
-        console.log(`Item ${index} type:`, item?.type, 'typeName:', item?.typeName);
-        
+      return list.map((item: any) => {
         // Handle tuple - could be item.value or item itself
         let tuple = item;
         if (item && item.value) {
@@ -116,15 +70,10 @@ export function useStory() {
           tuple = item.value || item.data || item;
         }
 
-        console.log(`Item ${index} tuple:`, tuple);
-        console.log(`Item ${index} tuple keys:`, tuple ? Object.keys(tuple) : 'no tuple');
-
-        // Try different ways to access tuple fields
+        // Extract tuple fields
         const word = extractValue(tuple?.word) || extractValue(tuple?.['word']) || '';
         const sender = extractValue(tuple?.sender) || extractValue(tuple?.['sender']) || '';
         const timestamp = Number(extractValue(tuple?.timestamp) || extractValue(tuple?.['timestamp']) || 0);
-
-        console.log(`Item ${index} parsed:`, { word, sender, timestamp });
 
         return { word, sender, timestamp };
       });
@@ -132,7 +81,6 @@ export function useStory() {
 
     // If it's already an array, parse it directly
     if (Array.isArray(cv)) {
-      console.log('cv is already an array');
       return cv.map((item: any) => ({
         word: extractValue(item.word) || '',
         sender: extractValue(item.sender) || '',
@@ -142,11 +90,9 @@ export function useStory() {
 
     // Try to access data property
     if (cv.data && Array.isArray(cv.data)) {
-      console.log('Found cv.data array');
       return parseClarityValue(cv.data);
     }
 
-    console.log('Could not parse cv, returning empty array');
     return [];
   };
 
