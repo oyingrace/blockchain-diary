@@ -37,11 +37,12 @@ export function AddWord({ onWordAdded }: AddWordProps) {
       if (result) {
         setSuccess(true);
         setWord('');
-        // Wait a moment before refreshing to allow block to be mined
+        // Refresh immediately - polling will catch updates once block is mined
+        onWordAdded?.();
+        // Clear success message after a moment
         setTimeout(() => {
-          onWordAdded?.();
           setSuccess(false);
-        }, 2000);
+        }, 3000);
       }
     } catch (err) {
       console.error('Error adding word:', err);

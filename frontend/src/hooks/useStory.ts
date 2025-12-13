@@ -1,16 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { fetchCallReadOnlyFunction } from '@stacks/transactions';
 import { CONTRACT_ADDRESS, CONTRACT_NAME, NETWORK } from '../constants';
 import type { StoryEntry } from '../types';
+
+const POLL_INTERVAL = 10000; // 10 seconds
 
 export function useStory() {
   const [story, setStory] = useState<StoryEntry[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const isInitialLoadRef = useRef(true);
 
-  const fetchStory = async () => {
+  const fetchStory = async (showLoading = false) => {
     try {
-      setIsLoading(true);
+      if (showLoading || isInitialLoadRef.current) {
+        setIsLoading(true);
+      }
       setError(null);
 
       const result = await fetchCallReadOnlyFunction({
@@ -25,6 +31,7 @@ export function useStory() {
       // Parse the ClarityValue result
       const parsedStory = parseClarityValue(result);
       setStory(parsedStory);
+      isInitialLoadRef.current = false;
     } catch (err) {
       console.error('Error fetching story:', err);
       setError(err instanceof Error ? err.message : 'Failed to fetch story');
@@ -76,8 +83,25 @@ export function useStory() {
   };
 
   useEffect(() => {
+    // Initial fetch
     fetchStory();
+
+    // Set up polling interval
+    pollingIntervalRef.current = setInterval(() => {
+      fetchStory(false); // Don't show loading state on polls
+    }, POLL_INTERVAL);
+
+    // Cleanup interval on unmount
+    return () => {
+      if (pollingIntervalRef.current) {
+        clearInterval(pollingIntervalRef.current);
+      }
+    };
   }, []);
 
-  return { story, isLoading, error, refetch: fetchStory };
+  const refetch = () => {
+    fetchStory(true); // Show loading state on manual refresh
+  };
+
+  return { story, isLoading, error, refetch };
 }
