@@ -9,7 +9,7 @@ plan:
     - id: 0
       transactions:
         - contract-publish:
-            contract-name: story
+            contract-name: story-v2
             expected-sender: SP1HGXPGWSHPHW3PNC66FWQ5VG1PFNYKBCV82FWNK
             cost: 22260
             path: contracts/story.clar

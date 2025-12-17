@@ -64,7 +64,7 @@ plan:
     - id: 0
       transactions:
         - emulated-contract-publish:
-            contract-name: story
+            contract-name: story-v2
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/story-v2.clar
             clarity-version: 4
