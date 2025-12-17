@@ -1,3 +1,10 @@
+import type {
+  ChainhookDefinitionSchema,      // Chainhooks configuration
+  ChainhookStatusSchema,           // Status and activity info
+  EvaluateChainhookRequest,        // Evaluation parameters
+  BulkEnableChainhooksRequest,     // Bulk operation filters
+} from '@hirosystems/chainhooks-client';
+
 import { useState, useEffect, useRef } from 'react';
 import { fetchCallReadOnlyFunction, Cl } from '@stacks/transactions';
 import { CONTRACT_ADDRESS, CONTRACT_NAME, NETWORK } from '../constants';
