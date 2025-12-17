@@ -77,6 +77,24 @@
   )
 )
 
+;; ------------------------------------------------------------
+;; READ-ONLY: Get a word by its id
+;; - Returns the full stored entry for the given id.
+;; - If no word exists for that id, returns ERR-WORD-NOT-FOUND.
+;; ------------------------------------------------------------
+(define-read-only (get-word (id uint))
+  (let
+    (
+      (stored (map-get? words { id: id }))
+    )
+    (if (is-none stored)
+        ERR-WORD-NOT-FOUND
+        (ok (unwrap-panic stored))
+    )
+  )
+)
+
+
 
 
 
