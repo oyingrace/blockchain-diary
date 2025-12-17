@@ -10,6 +10,15 @@ import { fetchCallReadOnlyFunction, Cl } from '@stacks/transactions';
 import { CONTRACT_ADDRESS, CONTRACT_NAME, NETWORK } from '../constants';
 import type { StoryEntry } from '../types';
 
+
+
+export type {
+  ChainhookDefinitionSchema,
+  ChainhookStatusSchema,
+  EvaluateChainhookRequest,
+  BulkEnableChainhooksRequest,
+};
+
 const POLL_INTERVAL = 10000; // 10 seconds
 
 export function useStory() {
