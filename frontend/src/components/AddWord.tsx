@@ -13,6 +13,7 @@ interface AddWordProps {
 export function AddWord({ onWordAdded }: AddWordProps) {
   const { isConnected } = useWallet();
   const [word, setWord] = useState('');
+  const [category, setCategory] = useState('general');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -29,7 +30,11 @@ export function AddWord({ onWordAdded }: AddWordProps) {
       const result: TransactionResult = await request('stx_callContract', {
         contract: `${CONTRACT_ADDRESS}.${CONTRACT_NAME}`,
         functionName: 'add-word',
-        functionArgs: [Cl.stringAscii(word.trim())],
+        functionArgs: [
+          Cl.stringAscii(word.trim()),
+          // Allow empty/whitespace category to fall back to DEFAULT-CATEGORY on-chain
+          Cl.stringAscii(category.trim()),
+        ],
         network: NETWORK,
         postConditionMode: 'deny',
         sponsored: false,
@@ -38,6 +43,7 @@ export function AddWord({ onWordAdded }: AddWordProps) {
       if (result) {
         setSuccess(true);
         setWord('');
+        setCategory('general');
         // Refresh immediately - polling will catch updates once block is mined
         onWordAdded?.();
         // Clear success message after a moment
@@ -67,6 +73,17 @@ export function AddWord({ onWordAdded }: AddWordProps) {
             disabled={!isConnected || isLoading}
             className="word-input"
           />
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            disabled={!isConnected || isLoading}
+            className="category-select"
+          >
+            <option value="general">general</option>
+            <option value="tech">tech</option>
+            <option value="fun">fun</option>
+            <option value="poetry">poetry</option>
+          </select>
           <button
             type="submit"
             disabled={!isConnected || isLoading || !word.trim()}
