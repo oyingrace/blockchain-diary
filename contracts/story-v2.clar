@@ -25,6 +25,19 @@
   u0
 )
 
+;; ------------------------------------------------------------
+;; INTERNAL: Normalize category
+;; - If the provided category is empty (zero-length), use DEFAULT-CATEGORY.
+;; - Otherwise return the provided category unchanged.
+;; ------------------------------------------------------------
+(define-private (normalize-category (maybe-category (string-ascii 32)))
+  (if (= (len maybe-category) u0)
+      DEFAULT-CATEGORY
+      maybe-category
+  )
+)
+
+
 
 ;; ------------------------------------------------------------
 ;; DATA: Auto-incrementing ID counter for words
