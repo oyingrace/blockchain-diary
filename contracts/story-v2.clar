@@ -46,8 +46,15 @@
 
 ;; ------------------------------------------------------------
 ;; PUBLIC: Add a new word to the story
+;; Intended usage:
+;; - Called directly by users from the frontend.
+;; - Frontend should pass the selected category or an empty string ("")
+;;   to fall back to DEFAULT-CATEGORY.
+;; Parameters:
 ;; - word      : the one-word text (string-ascii 32)
 ;; - category  : optional category name; if empty, DEFAULT-CATEGORY is used
+;; Returns:
+;; - { id, word, category, timestamp, sender }
 ;; ------------------------------------------------------------
 (define-public (add-word (word (string-ascii 32)) (category (string-ascii 32)))
   (let
@@ -88,8 +95,12 @@
 
 ;; ------------------------------------------------------------
 ;; READ-ONLY: Get a word by its id
-;; - Returns the full stored entry for the given id.
-;; - If no word exists for that id, returns ERR-WORD-NOT-FOUND.
+;; Intended usage:
+;; - Frontend uses this to inspect a specific word, e.g. when iterating
+;;   from 0 up to (get-word-count - 1).
+;; Behavior:
+;; - Returns (ok { word, sender, timestamp, category }) when found.
+;; - Returns ERR-WORD-NOT-FOUND when no entry exists for that id.
 ;; ------------------------------------------------------------
 (define-read-only (get-word (id uint))
   (let
@@ -105,6 +116,10 @@
 
 ;; ------------------------------------------------------------
 ;; READ-ONLY: Get the total number of words added so far
+;; Intended usage:
+;; - Frontend calls this once, then iterates ids [0..count-1]
+;;   and calls (get-word id) for each.
+;; Notes:
 ;; - This is equal to the current value of next-word-id,
 ;;   since ids start at 0 and increment by 1 for each new word.
 ;; ------------------------------------------------------------
