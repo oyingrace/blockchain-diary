@@ -39,7 +39,7 @@
 ;; - Otherwise return the provided category unchanged.
 ;; ------------------------------------------------------------
 (define-private (normalize-category (maybe-category (string-ascii 32)))
-  (if (= (len maybe-category) u0)
+  (if (is-eq (len maybe-category) u0)
       DEFAULT-CATEGORY
       maybe-category
   )
@@ -140,7 +140,7 @@
     (
       (count (var-get next-word-id))
     )
-    (if (= count u0)
+    (if (is-eq count u0)
         ERR-WORD-NOT-FOUND
         (ok (- count u1))
     )

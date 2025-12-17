@@ -12,7 +12,7 @@ plan:
             contract-name: story-v2
             expected-sender: SP1HGXPGWSHPHW3PNC66FWQ5VG1PFNYKBCV82FWNK
             cost: 22260
-            path: contracts/story.clar
+            path: contracts/story-v2.clar
             anchor-block-only: true
             clarity-version: 4
       epoch: "3.3"
