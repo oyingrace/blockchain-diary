@@ -9,9 +9,9 @@ plan:
     - id: 0
       transactions:
         - contract-publish:
-            contract-name: story
+            contract-name: story-v2
             expected-sender: ST1HGXPGWSHPHW3PNC66FWQ5VG1PFNYKBCSCQ7WMJ
-            cost: 398618
+            cost: 62230
             path: contracts/story-v2.clar
             anchor-block-only: true
             clarity-version: 4
