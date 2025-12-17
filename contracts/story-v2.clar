@@ -94,6 +94,16 @@
   )
 )
 
+;; ------------------------------------------------------------
+;; READ-ONLY: Get the total number of words added so far
+;; - This is equal to the current value of next-word-id,
+;;   since ids start at 0 and increment by 1 for each new word.
+;; ------------------------------------------------------------
+(define-read-only (get-word-count)
+  (ok (var-get next-word-id))
+)
+
+
 
 
 
