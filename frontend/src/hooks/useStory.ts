@@ -19,19 +19,59 @@ export function useStory() {
       }
       setError(null);
 
-      const result = await fetchCallReadOnlyFunction({
+      // 1) Get total number of words from story-v2
+      const countResult = await fetchCallReadOnlyFunction({
         contractAddress: CONTRACT_ADDRESS,
         contractName: CONTRACT_NAME,
-        functionName: 'get-story',
+        functionName: 'get-word-count',
         functionArgs: [],
         network: NETWORK,
         senderAddress: CONTRACT_ADDRESS,
       });
 
-      // Parse the ClarityValue result
-      // Structure: { type: 'ok', value: { type: 'list', list: [...] } }
-      const parsedStory = parseClarityValue(result);
-      setStory(parsedStory);
+      const countInner = extractOkInner(countResult);
+      const rawCount = extractValue(countInner);
+      const count = typeof rawCount === 'number' ? rawCount : Number(rawCount || 0);
+
+      if (!count || count <= 0) {
+        setStory([]);
+        isInitialLoadRef.current = false;
+        return;
+      }
+
+      // 2) Fetch each word by id: [0 .. count-1]
+      const entries: StoryEntry[] = [];
+
+      for (let id = 0; id < count; id++) {
+        const wordResult = await fetchCallReadOnlyFunction({
+          contractAddress: CONTRACT_ADDRESS,
+          contractName: CONTRACT_NAME,
+          functionName: 'get-word',
+          functionArgs: [id],
+          network: NETWORK,
+          senderAddress: CONTRACT_ADDRESS,
+        });
+
+        const wordInner = extractOkInner(wordResult);
+        if (!wordInner) continue;
+
+        const tuple = wordInner.value || wordInner.data || wordInner;
+
+        const wordValue = extractValue(tuple?.word) ?? extractValue(tuple?.['word']) ?? '';
+        const senderValue = extractValue(tuple?.sender) ?? extractValue(tuple?.['sender']) ?? '';
+        const timestampValue = extractValue(tuple?.timestamp) ?? extractValue(tuple?.['timestamp']) ?? 0;
+        const categoryValue = extractValue(tuple?.category) ?? extractValue(tuple?.['category']) ?? '';
+
+        entries.push({
+          id,
+          word: String(wordValue),
+          sender: String(senderValue),
+          timestamp: Number(timestampValue),
+          category: String(categoryValue || ''),
+        });
+      }
+
+      setStory(entries);
       isInitialLoadRef.current = false;
     } catch (err) {
       console.error('Error fetching story:', err);
@@ -42,68 +82,18 @@ export function useStory() {
     }
   };
 
-  const parseClarityValue = (cv: any): StoryEntry[] => {
+  const extractOkInner = (cv: any): any => {
     if (!cv) return [];
 
-    // Handle ResponseOk type (type 9, 'ok', or ResponseOk)
     if (cv.type === 9 || cv.type === 'ok' || cv.typeName === 'ResponseOk' || cv.type === 'ResponseOk') {
-      if (cv.value) {
-        return parseClarityValue(cv.value);
-      }
-      return [];
+      return cv.value;
     }
 
-    // Handle List type (type 10, 'list', or List)
-    if (cv.type === 10 || cv.type === 'list' || cv.typeName === 'List' || cv.type === 'List') {
-      const list = cv.list || cv.value || [];
-      
-      if (!Array.isArray(list)) {
-        return [];
-      }
-
-      return list.map((item: any) => {
-        // Handle tuple - could be item.value or item itself
-        let tuple = item;
-        if (item && item.value) {
-          tuple = item.value;
-        } else if (item && (item.type === 'Tuple' || item.type === 'tuple')) {
-          tuple = item.value || item.data || item;
-        }
-
-        // Extract tuple fields - ensure word and sender are strings
-        const wordValue = extractValue(tuple?.word) || extractValue(tuple?.['word']) || '';
-        const senderValue = extractValue(tuple?.sender) || extractValue(tuple?.['sender']) || '';
-        const timestampValue = extractValue(tuple?.timestamp) || extractValue(tuple?.['timestamp']) || 0;
-
-        const word: string = String(wordValue);
-        const sender: string = String(senderValue);
-        const timestamp: number = Number(timestampValue);
-
-        return { word, sender, timestamp };
-      });
+    if (cv.value && (cv.value.type === 9 || cv.value.type === 'ok' || cv.value.typeName === 'ResponseOk')) {
+      return cv.value.value;
     }
 
-    // If it's already an array, parse it directly
-    if (Array.isArray(cv)) {
-      return cv.map((item: any) => {
-        const wordValue = extractValue(item.word) || '';
-        const senderValue = extractValue(item.sender) || '';
-        const timestampValue = extractValue(item.timestamp) || 0;
-
-        return {
-          word: String(wordValue),
-          sender: String(senderValue),
-          timestamp: Number(timestampValue),
-        };
-      });
-    }
-
-    // Try to access data property
-    if (cv.data && Array.isArray(cv.data)) {
-      return parseClarityValue(cv.data);
-    }
-
-    return [];
+    return cv;
   };
 
   const extractValue = (value: any): string | number | null => {
