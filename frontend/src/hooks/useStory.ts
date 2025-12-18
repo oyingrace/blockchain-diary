@@ -19,11 +19,11 @@ export type {
   BulkEnableChainhooksRequest,
 };
 
-const POLL_INTERVAL = 20000; // 20 seconds - increased to reduce API calls
+const POLL_INTERVAL = 10000; // 10 seconds - increased to reduce API calls
 const API_DELAY_MS = 1000; // 1 second delay between API calls to stay under per-minute rate limits
 const MAX_RETRIES = 3;
 const INITIAL_RETRY_DELAY = 1000; // 1 second
-const RATE_LIMIT_WAIT_MS = 20000; // 20 seconds wait for per-minute rate limits
+const RATE_LIMIT_WAIT_MS = 10000; // 10 seconds wait for per-minute rate limits
 
 // Helper function to delay execution
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
