@@ -20,3 +20,4 @@ interface Statistics {
 function calculateStatistics(story: StoryEntry[]): Statistics {
   if (!story || story.length === 0) {
     return {
+      totalWords: 0,
