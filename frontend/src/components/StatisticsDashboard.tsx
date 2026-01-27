@@ -49,3 +49,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
     if (entry.timestamp === 0) return false; // Skip invalid timestamps
     return entry.timestamp * 1000 >= todayStart; // Convert to milliseconds
   }).length;
+
