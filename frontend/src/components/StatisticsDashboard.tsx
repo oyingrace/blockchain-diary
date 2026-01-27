@@ -80,3 +80,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
 export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardProps) {
   if (isLoading) {
     return (
+      <section className="statistics-section">
