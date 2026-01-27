@@ -127,3 +127,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
           <div className="stat-content">
             <div className="stat-value">{stats.averageWordsPerContributor}</div>
             <div className="stat-label">Avg Words/Contributor</div>
+          </div>
