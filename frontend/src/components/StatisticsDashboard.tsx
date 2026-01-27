@@ -144,3 +144,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
             <div className="stat-value">{stats.wordsThisWeek}</div>
             <div className="stat-label">Words This Week</div>
           </div>
+        </div>
