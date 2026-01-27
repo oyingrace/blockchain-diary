@@ -46,3 +46,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
   const weekAgo = now - 7 * 24 * 60 * 60 * 1000;
 
   const wordsToday = story.filter(entry => {
+    if (entry.timestamp === 0) return false; // Skip invalid timestamps
