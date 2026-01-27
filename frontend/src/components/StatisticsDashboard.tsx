@@ -5,3 +5,4 @@ import './StatisticsDashboard.css';
 interface StatisticsDashboardProps {
   story: StoryEntry[];
   isLoading?: boolean;
+}
