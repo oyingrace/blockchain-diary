@@ -26,3 +26,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
       wordsToday: 0,
       wordsThisWeek: 0,
       categoryDistribution: {},
+      mostActiveCategory: '',
