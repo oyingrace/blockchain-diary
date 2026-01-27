@@ -74,3 +74,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
     wordsThisWeek,
     categoryDistribution,
     mostActiveCategory,
+  };
