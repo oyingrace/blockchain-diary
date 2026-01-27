@@ -161,3 +161,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
           <div className="category-list">
             {Object.entries(stats.categoryDistribution)
               .sort(([, a], [, b]) => b - a)
+              .map(([category, count]) => (
