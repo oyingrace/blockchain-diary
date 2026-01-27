@@ -4,6 +4,7 @@ import { AddWord } from './components/AddWord';
 import { FullStory } from './components/FullStory';
 import { Contributors } from './components/Contributors';
 import { StreakDisplay } from './components/StreakDisplay';
+import { StatisticsDashboard } from './components/StatisticsDashboard';
 import { useStory } from './hooks/useStory';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <main className="main-content">
           <AddWord onWordAdded={refetch} />
           <StreakDisplay story={story} />
+          <StatisticsDashboard story={story} isLoading={isLoading} />
           <FullStory story={story} isLoading={isLoading} />
           <Contributors story={story} isLoading={isLoading} />
         </main>
