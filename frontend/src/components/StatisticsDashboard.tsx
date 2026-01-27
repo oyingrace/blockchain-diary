@@ -67,3 +67,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
     .sort(([, a], [, b]) => b - a)[0]?.[0] || '';
 
   return {
+    totalWords,
