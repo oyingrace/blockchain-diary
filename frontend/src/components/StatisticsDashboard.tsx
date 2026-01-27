@@ -16,3 +16,4 @@ interface Statistics {
   categoryDistribution: Record<string, number>;
   mostActiveCategory: string;
 }
+
