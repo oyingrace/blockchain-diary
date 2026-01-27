@@ -107,3 +107,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
       <h2>Statistics</h2>
       <div className="statistics-grid">
         <div className="stat-card">
+          <div className="stat-icon">📊</div>
