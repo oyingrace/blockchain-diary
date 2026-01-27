@@ -113,3 +113,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
             <div className="stat-label">Total Words</div>
           </div>
         </div>
+
