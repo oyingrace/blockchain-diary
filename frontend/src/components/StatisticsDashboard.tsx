@@ -165,3 +165,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
                 <div key={category} className="category-item">
                   <span className="category-name">{category}</span>
                   <div className="category-bar-container">
+                    <div 
