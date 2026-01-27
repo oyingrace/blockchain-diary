@@ -55,3 +55,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
     return entry.timestamp * 1000 >= weekAgo;
   }).length;
 
+  // Calculate category distribution
