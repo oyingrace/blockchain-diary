@@ -62,3 +62,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
     categoryDistribution[category] = (categoryDistribution[category] || 0) + 1;
   });
 
+  // Find most active category
