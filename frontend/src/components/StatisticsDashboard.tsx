@@ -83,3 +83,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
       <section className="statistics-section">
         <h2>Statistics</h2>
         <div className="statistics-loading">
+          <p>Loading statistics...</p>
