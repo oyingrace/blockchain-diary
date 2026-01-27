@@ -50,3 +50,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
     return entry.timestamp * 1000 >= todayStart; // Convert to milliseconds
   }).length;
 
+  const wordsThisWeek = story.filter(entry => {
