@@ -89,3 +89,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
     );
   }
 
+  const stats = calculateStatistics(story);
