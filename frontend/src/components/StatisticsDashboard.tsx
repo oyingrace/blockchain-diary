@@ -132,3 +132,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
 
         <div className="stat-card">
           <div className="stat-icon">📅</div>
+          <div className="stat-content">
