@@ -164,3 +164,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
               .map(([category, count]) => (
                 <div key={category} className="category-item">
                   <span className="category-name">{category}</span>
+                  <div className="category-bar-container">
