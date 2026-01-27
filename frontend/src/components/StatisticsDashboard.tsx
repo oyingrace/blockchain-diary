@@ -44,3 +44,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
   const now = Date.now();
   const todayStart = new Date().setHours(0, 0, 0, 0);
   const weekAgo = now - 7 * 24 * 60 * 60 * 1000;
+
