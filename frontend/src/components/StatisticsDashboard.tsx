@@ -28,3 +28,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
       categoryDistribution: {},
       mostActiveCategory: '',
     };
+  }
