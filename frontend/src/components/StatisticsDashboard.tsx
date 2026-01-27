@@ -9,3 +9,4 @@ interface StatisticsDashboardProps {
 
 interface Statistics {
   totalWords: number;
+  totalContributors: number;
