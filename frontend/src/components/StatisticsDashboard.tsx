@@ -14,3 +14,4 @@ interface Statistics {
   wordsToday: number;
   wordsThisWeek: number;
   categoryDistribution: Record<string, number>;
+  mostActiveCategory: string;
