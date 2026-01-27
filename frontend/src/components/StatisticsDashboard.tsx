@@ -17,3 +17,4 @@ interface Statistics {
   mostActiveCategory: string;
 }
 
+function calculateStatistics(story: StoryEntry[]): Statistics {
