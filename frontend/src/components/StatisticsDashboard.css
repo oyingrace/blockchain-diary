@@ -120,3 +120,4 @@
 
 @media (max-width: 640px) {
   .statistics-grid {
+    grid-template-columns: repeat(2, 1fr);
