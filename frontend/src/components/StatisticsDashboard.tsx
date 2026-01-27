@@ -99,3 +99,5 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
           <p>No statistics available yet. Add words to see stats!</p>
         </div>
       </section>
+    );
+  }
