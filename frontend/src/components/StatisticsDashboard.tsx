@@ -68,3 +68,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
 
   return {
     totalWords,
+    totalContributors,
