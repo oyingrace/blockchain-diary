@@ -171,3 +171,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
                         width: `${(count / stats.totalWords) * 100}%` 
                       }}
                     />
+                  </div>
