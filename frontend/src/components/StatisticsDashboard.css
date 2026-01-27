@@ -125,3 +125,4 @@
   }
 
   .stat-card {
+    flex-direction: column;
