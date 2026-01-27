@@ -76,3 +76,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
     mostActiveCategory,
   };
 }
+
