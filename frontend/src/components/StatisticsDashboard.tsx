@@ -153,3 +153,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
             <div className="stat-label">Most Active Category</div>
           </div>
         </div>
+      </div>
