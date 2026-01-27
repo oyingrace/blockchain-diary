@@ -8,3 +8,4 @@ interface StatisticsDashboardProps {
 }
 
 interface Statistics {
+  totalWords: number;
