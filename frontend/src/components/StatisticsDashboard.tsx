@@ -61,3 +61,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
     const category = entry.category || 'general';
     categoryDistribution[category] = (categoryDistribution[category] || 0) + 1;
   });
+
