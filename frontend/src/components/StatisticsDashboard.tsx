@@ -54,3 +54,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
     if (entry.timestamp === 0) return false;
     return entry.timestamp * 1000 >= weekAgo;
   }).length;
+
