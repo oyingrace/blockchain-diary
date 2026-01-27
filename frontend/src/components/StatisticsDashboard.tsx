@@ -93,3 +93,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
 
   if (stats.totalWords === 0) {
     return (
+      <section className="statistics-section">
