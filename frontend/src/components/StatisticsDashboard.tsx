@@ -56,3 +56,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
   }).length;
 
   // Calculate category distribution
+  const categoryDistribution: Record<string, number> = {};
