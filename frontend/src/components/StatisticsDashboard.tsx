@@ -105,3 +105,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
   return (
     <section className="statistics-section">
       <h2>Statistics</h2>
+      <div className="statistics-grid">
