@@ -155,3 +155,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
         </div>
       </div>
 
+      {Object.keys(stats.categoryDistribution).length > 0 && (
