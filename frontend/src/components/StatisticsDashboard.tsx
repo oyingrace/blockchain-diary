@@ -24,3 +24,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
       totalContributors: 0,
       averageWordsPerContributor: 0,
       wordsToday: 0,
+      wordsThisWeek: 0,
