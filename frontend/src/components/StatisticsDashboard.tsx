@@ -78,3 +78,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
 }
 
 export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardProps) {
+  if (isLoading) {
