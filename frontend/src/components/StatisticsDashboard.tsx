@@ -7,3 +7,4 @@ interface StatisticsDashboardProps {
   isLoading?: boolean;
 }
 
+interface Statistics {
