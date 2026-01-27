@@ -39,3 +39,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
     ? Number((totalWords / totalContributors).toFixed(2))
     : 0;
 
+  // Calculate words added today and this week
