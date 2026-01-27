@@ -177,3 +177,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
               ))}
           </div>
         </div>
+      )}
