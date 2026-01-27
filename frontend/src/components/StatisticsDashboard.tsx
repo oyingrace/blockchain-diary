@@ -36,3 +36,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
   const contributorsSet = new Set(story.map(entry => entry.sender));
   const totalContributors = contributorsSet.size;
   const averageWordsPerContributor = totalContributors > 0 
+    ? Number((totalWords / totalContributors).toFixed(2))
