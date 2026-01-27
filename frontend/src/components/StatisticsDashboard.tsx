@@ -92,3 +92,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
   const stats = calculateStatistics(story);
 
   if (stats.totalWords === 0) {
+    return (
