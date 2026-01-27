@@ -147,3 +147,4 @@
   }
 
   .category-item {
+    flex-wrap: wrap;
