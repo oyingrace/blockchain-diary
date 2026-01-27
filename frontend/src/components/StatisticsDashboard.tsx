@@ -13,3 +13,4 @@ interface Statistics {
   averageWordsPerContributor: number;
   wordsToday: number;
   wordsThisWeek: number;
+  categoryDistribution: Record<string, number>;
