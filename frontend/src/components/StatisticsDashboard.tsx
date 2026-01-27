@@ -159,3 +159,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
         <div className="category-breakdown">
           <h3>Category Breakdown</h3>
           <div className="category-list">
+            {Object.entries(stats.categoryDistribution)
