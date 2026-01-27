@@ -45,3 +45,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
   const todayStart = new Date().setHours(0, 0, 0, 0);
   const weekAgo = now - 7 * 24 * 60 * 60 * 1000;
 
+  const wordsToday = story.filter(entry => {
