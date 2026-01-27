@@ -88,3 +88,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
       </section>
     );
   }
+
