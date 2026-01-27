@@ -150,3 +150,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
           <div className="stat-icon">🏷️</div>
           <div className="stat-content">
             <div className="stat-value">{stats.mostActiveCategory || 'N/A'}</div>
+            <div className="stat-label">Most Active Category</div>
