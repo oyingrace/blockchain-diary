@@ -40,3 +40,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
     : 0;
 
   // Calculate words added today and this week
+  // Note: Contract currently returns u0 for timestamps, so these may be 0
