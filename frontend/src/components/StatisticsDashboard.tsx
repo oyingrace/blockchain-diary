@@ -48,3 +48,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
   const wordsToday = story.filter(entry => {
     if (entry.timestamp === 0) return false; // Skip invalid timestamps
     return entry.timestamp * 1000 >= todayStart; // Convert to milliseconds
+  }).length;
