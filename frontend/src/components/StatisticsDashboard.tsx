@@ -51,3 +51,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
   }).length;
 
   const wordsThisWeek = story.filter(entry => {
+    if (entry.timestamp === 0) return false;
