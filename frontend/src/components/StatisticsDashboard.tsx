@@ -86,3 +86,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
           <p>Loading statistics...</p>
         </div>
       </section>
+    );
