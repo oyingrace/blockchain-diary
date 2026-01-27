@@ -33,3 +33,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
   const totalWords = story.length;
   
   // Calculate unique contributors
+  const contributorsSet = new Set(story.map(entry => entry.sender));
