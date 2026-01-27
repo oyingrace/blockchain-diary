@@ -119,3 +119,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
           <div className="stat-content">
             <div className="stat-value">{stats.totalContributors}</div>
             <div className="stat-label">Contributors</div>
+          </div>
