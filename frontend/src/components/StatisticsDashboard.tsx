@@ -173,3 +173,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
                     />
                   </div>
                   <span className="category-count">{count}</span>
+                </div>
