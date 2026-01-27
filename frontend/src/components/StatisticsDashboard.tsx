@@ -158,3 +158,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
       {Object.keys(stats.categoryDistribution).length > 0 && (
         <div className="category-breakdown">
           <h3>Category Breakdown</h3>
+          <div className="category-list">
