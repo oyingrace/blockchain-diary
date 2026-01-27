@@ -12,3 +12,4 @@
 }
 
 .statistics-grid {
+  display: grid;
