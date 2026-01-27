@@ -122,3 +122,4 @@ export function StatisticsDashboard({ story, isLoading }: StatisticsDashboardPro
           </div>
         </div>
 
+        <div className="stat-card">
