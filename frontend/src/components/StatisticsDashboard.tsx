@@ -66,3 +66,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
   const mostActiveCategory = Object.entries(categoryDistribution)
     .sort(([, a], [, b]) => b - a)[0]?.[0] || '';
 
+  return {
