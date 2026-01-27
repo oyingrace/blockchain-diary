@@ -34,3 +34,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
   
   // Calculate unique contributors
   const contributorsSet = new Set(story.map(entry => entry.sender));
+  const totalContributors = contributorsSet.size;
