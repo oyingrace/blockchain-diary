@@ -60,3 +60,4 @@ function calculateStatistics(story: StoryEntry[]): Statistics {
   story.forEach(entry => {
     const category = entry.category || 'general';
     categoryDistribution[category] = (categoryDistribution[category] || 0) + 1;
+  });
