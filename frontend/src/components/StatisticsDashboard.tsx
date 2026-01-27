@@ -11,3 +11,4 @@ interface Statistics {
   totalWords: number;
   totalContributors: number;
   averageWordsPerContributor: number;
+  wordsToday: number;
