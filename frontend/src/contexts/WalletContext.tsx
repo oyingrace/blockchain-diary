@@ -23,3 +23,4 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const connectWallet = async () => {
     try {
       const connectionResponse: GetAddressesResult = await connect();
+      // addresses[0] is the mainnet address
