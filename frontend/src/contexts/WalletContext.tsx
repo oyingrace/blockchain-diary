@@ -30,3 +30,5 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       setWalletInfo(connectionResponse);
       setAddress(mainnetAddress || null);
     } catch (error) {
+      console.error('Failed to connect wallet:', error);
+    }
