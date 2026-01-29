@@ -13,3 +13,4 @@ interface WalletContextType {
   disconnectWallet: () => void;
 }
 
+const WalletContext = createContext<WalletContextType | undefined>(undefined);
