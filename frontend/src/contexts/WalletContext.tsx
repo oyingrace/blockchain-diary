@@ -37,3 +37,4 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const disconnectWallet = () => {
     disconnect();
     setIsConnected(false);
+    setAddress(null);
