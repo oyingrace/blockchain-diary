@@ -22,3 +22,4 @@ export function WalletProvider({ children }: { children: ReactNode }) {
 
   const connectWallet = async () => {
     try {
+      const connectionResponse: GetAddressesResult = await connect();
