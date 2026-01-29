@@ -10,3 +10,4 @@ interface WalletContextType {
   address: string | null;
   walletInfo: GetAddressesResult | null;
   connectWallet: () => Promise<void>;
+  disconnectWallet: () => void;
