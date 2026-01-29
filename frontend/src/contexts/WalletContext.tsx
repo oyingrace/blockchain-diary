@@ -45,3 +45,4 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     <WalletContext.Provider
       value={{
         isConnected,
+        address,
