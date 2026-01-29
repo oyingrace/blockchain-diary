@@ -5,3 +5,4 @@ import { connect, disconnect } from '@stacks/connect';
 import type { GetAddressesResult } from '@stacks/connect/dist/types/methods';
 
 
+interface WalletContextType {
