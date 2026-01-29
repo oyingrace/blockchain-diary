@@ -29,3 +29,4 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       setIsConnected(true);
       setWalletInfo(connectionResponse);
       setAddress(mainnetAddress || null);
+    } catch (error) {
