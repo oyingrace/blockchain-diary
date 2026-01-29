@@ -41,3 +41,4 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     setWalletInfo(null);
   };
 
+  return (
