@@ -50,3 +50,4 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         connectWallet,
         disconnectWallet,
       }}
+    >
