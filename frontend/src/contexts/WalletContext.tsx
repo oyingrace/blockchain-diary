@@ -46,3 +46,4 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       value={{
         isConnected,
         address,
+        walletInfo,
