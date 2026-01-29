@@ -15,3 +15,4 @@ interface WalletContextType {
 
 const WalletContext = createContext<WalletContextType | undefined>(undefined);
 
+export function WalletProvider({ children }: { children: ReactNode }) {
