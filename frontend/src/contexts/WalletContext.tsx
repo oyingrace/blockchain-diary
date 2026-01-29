@@ -27,3 +27,4 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       const mainnetAddress = connectionResponse.addresses[0]?.address;
       
       setIsConnected(true);
+      setWalletInfo(connectionResponse);
