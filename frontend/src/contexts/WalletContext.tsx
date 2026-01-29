@@ -38,3 +38,4 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     disconnect();
     setIsConnected(false);
     setAddress(null);
+    setWalletInfo(null);
