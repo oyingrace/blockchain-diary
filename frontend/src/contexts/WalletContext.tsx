@@ -18,3 +18,4 @@ const WalletContext = createContext<WalletContextType | undefined>(undefined);
 export function WalletProvider({ children }: { children: ReactNode }) {
   const [isConnected, setIsConnected] = useState(false);
   const [address, setAddress] = useState<string | null>(null);
+  const [walletInfo, setWalletInfo] = useState<GetAddressesResult | null>(null);
