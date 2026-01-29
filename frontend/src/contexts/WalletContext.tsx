@@ -48,3 +48,4 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         address,
         walletInfo,
         connectWallet,
+        disconnectWallet,
