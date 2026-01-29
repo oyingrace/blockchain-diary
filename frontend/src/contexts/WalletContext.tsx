@@ -32,3 +32,4 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     } catch (error) {
       console.error('Failed to connect wallet:', error);
     }
+  };
