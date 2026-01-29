@@ -47,3 +47,4 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         isConnected,
         address,
         walletInfo,
+        connectWallet,
