@@ -49,3 +49,4 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         walletInfo,
         connectWallet,
         disconnectWallet,
+      }}
