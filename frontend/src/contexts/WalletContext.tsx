@@ -40,3 +40,4 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     setAddress(null);
     setWalletInfo(null);
   };
+
