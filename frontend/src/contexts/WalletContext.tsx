@@ -7,3 +7,4 @@ import type { GetAddressesResult } from '@stacks/connect/dist/types/methods';
 
 interface WalletContextType {
   isConnected: boolean;
+  address: string | null;
