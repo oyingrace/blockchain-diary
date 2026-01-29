@@ -20,3 +20,4 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const [address, setAddress] = useState<string | null>(null);
   const [walletInfo, setWalletInfo] = useState<GetAddressesResult | null>(null);
 
+  const connectWallet = async () => {
