@@ -54,3 +54,4 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       {children}
     </WalletContext.Provider>
   );
+}
