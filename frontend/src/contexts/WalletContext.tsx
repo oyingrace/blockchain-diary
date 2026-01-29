@@ -57,3 +57,4 @@ export function WalletProvider({ children }: { children: ReactNode }) {
 }
 
 export function useWallet() {
+  const context = useContext(WalletContext);
