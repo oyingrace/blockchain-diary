@@ -21,3 +21,4 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const [walletInfo, setWalletInfo] = useState<GetAddressesResult | null>(null);
 
   const connectWallet = async () => {
+    try {
