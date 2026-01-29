@@ -9,3 +9,4 @@ interface WalletContextType {
   isConnected: boolean;
   address: string | null;
   walletInfo: GetAddressesResult | null;
+  connectWallet: () => Promise<void>;
